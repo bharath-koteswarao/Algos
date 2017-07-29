@@ -1,0 +1,13 @@
+--> Suffix tree is a tree constructed in the following manner:
+1) Find all the suffixes of the string
+   Eg : For 'banana' the suffixes are :
+        banana
+         anana
+          nana
+           ana
+            na
+             a
+2) Now construct a trie with all the suffixes
+    Now just compress this trie and this is the suffix tree
+
+3) Best reference : http://www.geeksforgeeks.org/pattern-searching-set-8-suffix-tree-introduction/
