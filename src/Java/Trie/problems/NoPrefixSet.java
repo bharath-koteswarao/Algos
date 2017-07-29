@@ -1,4 +1,4 @@
-package Trie.problems;
+package Java.Trie.problems;
 
 import java.util.Scanner;
 

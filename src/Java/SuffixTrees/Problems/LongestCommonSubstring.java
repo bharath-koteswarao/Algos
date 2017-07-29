@@ -1,4 +1,4 @@
-package SuffixTrees.Problems;
+package Java.SuffixTrees.Problems;
 
 /**
  * Created by BK on 29-07-2017.
@@ -34,7 +34,7 @@ public class LongestCommonSubstring {
     }
 
     private static void findLongestCommonSubStringInTwoStrings(Trie root) {
-
+        
     }
 
     private static void addIntoTrie(String string) {

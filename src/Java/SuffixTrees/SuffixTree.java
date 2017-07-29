@@ -1,4 +1,4 @@
-package SuffixTrees;
+package Java.SuffixTrees;
 
 import java.util.Scanner;
 

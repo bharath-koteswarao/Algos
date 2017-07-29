@@ -1,4 +1,4 @@
-package Trie;
+package Java.Trie;
 
 /**
  * Created by bk on 23-07-2017.

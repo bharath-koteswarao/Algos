@@ -1,3 +1,5 @@
+package Java;
+
 public class KmpAlgorithm {
 static int a;
     private static int[] calculateTable(char input[]) {
