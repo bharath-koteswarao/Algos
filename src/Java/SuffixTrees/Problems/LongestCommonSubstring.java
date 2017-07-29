@@ -15,6 +15,7 @@ class Trie {
         strings = new int[2];
         strings[stringNumber]++;
     }
+
     public Trie(char data) {
         this.data = data;
         nodes = new Trie[26];
@@ -24,28 +25,37 @@ class Trie {
 public class LongestCommonSubstring {
     static Trie root;
     static int count = 0;
+    static String longestSubstring = "";
 
-    public static void main(String args) {
+    public static void main(String... args) {
         root = new Trie(' ');
-        addIntoTrie("ababcabcdabcdeabcdef");
+        addIntoTrie("abcd");
         count++;
-        addIntoTrie("abcxyzabcdef");
-        findLongestCommonSubStringInTwoStrings(root);
+        addIntoTrie("cd");
+        findLongestSubstring(root);
+        System.out.println(longestSubstring);
     }
 
-    private static void findLongestCommonSubStringInTwoStrings(Trie root) {
-        
+    private static void findLongestSubstring(Trie root) {
+        for (int i = 0; i < root.nodes.length; i++) {
+            if (root.nodes[i] != null) {
+                System.out.println(i+" is != null");
+            } else {
+                System.out.println(i+" is null");
+            }
+        }
     }
+
 
     private static void addIntoTrie(String string) {
-        for (int j=0;j<string.length();j++) {
+        for (int j = 0; j < string.length(); j++) {
             Trie recent = root;
-            String temp=string.substring(j,string.length());
-            for (int i = 0; i < temp.length(); i++) {
-                if (recent.nodes[temp.charAt(i)] == null) {
-                    recent.nodes[temp.charAt(i) - 'a'] = new Trie(temp.charAt(i), count);
+            String substring = string.substring(j);
+            for (int i=0;i<substring.length();i++) {
+                if (recent.nodes[substring.charAt(i)-'a']==null) {
+                    recent.nodes[substring.charAt(i)-'a']=new Trie(substring.charAt(i),count);
                 }
-                recent = recent.nodes[temp.charAt(i) - 'a'];
+                recent=recent.nodes[substring.charAt(i)-'a'];
             }
         }
     }
