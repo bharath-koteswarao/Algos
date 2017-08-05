@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="usbserial">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/usbserial.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

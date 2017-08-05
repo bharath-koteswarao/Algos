@@ -1,1 +1,1 @@
-<h1>Algorithms</h1>
+<h1>Datastructures and Algorithms</h1>

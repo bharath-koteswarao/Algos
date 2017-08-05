@@ -36,6 +36,7 @@ public class LongestCommonSubstring {
         System.out.println(longestSubstring);
     }
 
+
     private static void findLongestSubstring(Trie root) {
         for (int i = 0; i < root.nodes.length; i++) {
             if (root.nodes[i] != null) {
@@ -54,11 +55,11 @@ public class LongestCommonSubstring {
         for (int j = 0; j < string.length(); j++) {
             Trie recent = root;
             String substring = string.substring(j);
-            for (int i=0;i<substring.length();i++) {
-                if (recent.nodes[substring.charAt(i)-'a']==null) {
-                    recent.nodes[substring.charAt(i)-'a']=new Trie(substring.charAt(i),count);
+            for (int i = 0; i < substring.length(); i++) {
+                if (recent.nodes[substring.charAt(i) - 'a'] == null) {
+                    recent.nodes[substring.charAt(i) - 'a'] = new Trie(substring.charAt(i), count);
                 }
-                recent=recent.nodes[substring.charAt(i)-'a'];
+                recent = recent.nodes[substring.charAt(i) - 'a'];
             }
         }
     }
