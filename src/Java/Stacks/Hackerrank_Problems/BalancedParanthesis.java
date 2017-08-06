@@ -6,6 +6,7 @@ import java.util.Stack;
 /**
  * Created by BK on 06-08-2017.
  */
+
 public class BalancedParanthesis {
     public static void main(String... strings) {
         Scanner sc = new Scanner(System.in);
@@ -17,16 +18,33 @@ public class BalancedParanthesis {
 
     private static void printAnswer(String input) {
         Stack<Character> stack = new Stack<>();
+        boolean isValid = true;
         for (int i = 0; i < input.length(); i++) {
             char currentChar = input.charAt(i);
             if (currentChar == '{' || currentChar == '(' || currentChar == '[') stack.push(currentChar);
             else if (currentChar == '}') {
-                System.out.println(stack.pop() == '{' ? "YES" : "NO");
+                if (stack.isEmpty()) isValid = false;
+                else {
+                    if (stack.pop() != '{') {
+                        isValid = false;
+                    }
+                }
             } else if (currentChar == ')') {
-                System.out.println(stack.pop() == '(' ? "YES" : "NO");
+                if (stack.isEmpty()) isValid = false;
+                else {
+                    if (stack.pop() != '(') {
+                        isValid = false;
+                    }
+                }
             } else if (currentChar == ']') {
-                System.out.println(stack.pop() == '[' ? "YES" : "NO");
+                if (stack.isEmpty()) isValid = false;
+                else {
+                    if (stack.pop() != '[') {
+                        isValid = false;
+                    }
+                }
             }
         }
+        System.out.println(isValid && stack.isEmpty() ? "YES" : "NO");
     }
 }
