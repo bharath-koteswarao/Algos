@@ -12,11 +12,11 @@ public class BalancedParanthesis {
         Scanner sc = new Scanner(System.in);
         int tc = sc.nextInt();
         for (int i = 0; i < tc; i++) {
-            printAnswer(sc.next());
+            System.out.println(printAnswer(sc.next()));
         }
     }
 
-    private static void printAnswer(String input) {
+    public static boolean printAnswer(String input) {
         Stack<Character> stack = new Stack<>();
         boolean isValid = true;
         for (int i = 0; i < input.length(); i++) {
@@ -45,6 +45,6 @@ public class BalancedParanthesis {
                 }
             }
         }
-        System.out.println(isValid && stack.isEmpty() ? "YES" : "NO");
+        return isValid && stack.isEmpty();
     }
 }
