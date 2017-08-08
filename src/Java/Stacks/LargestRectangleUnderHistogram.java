@@ -48,7 +48,7 @@ public class LargestRectangleUnderHistogram {
         */
 
         int maxarea = -1;
-        int i = 0;
+        int i;
         Stack<Integer> stack = new Stack<>();
         for (i = 0; i < input.length; i++) {
 
@@ -123,7 +123,29 @@ public class LargestRectangleUnderHistogram {
 
             int top = stack.pop();
 
-            maxarea = maxarea < (i - top) * input[top] ? (i - top) * input[top] : maxarea;
+            if (stack.isEmpty()) {
+                maxarea = Math.max(maxarea, (i - top) * input[top]);
+            } else {
+
+                /*
+                *
+                *     To understand why stack.peek()-1 in  (i - stack.peek() - 1) is written
+                *
+                *     Just Consider this example :
+                *
+                *     Number of inputs : 4
+                *
+                *     1 5 6 4 After the above for loop terminates i becomes 5
+                *
+                *     Here 1 and 5 and 6 gets pushed into stack (indices)
+                *     When 4 comes every thing is popped  except 1(index 0) as it is smaller than 4
+                *     So we need to multiply 4 by 3 times
+                *     We obtain this 3 by doing i-current top of stack-1
+                *     This is the reason why (i - stack.peek() - 1) is written.
+                * */
+
+                maxarea = Math.max(maxarea, (i - stack.peek() - 1) * input[top]);
+            }
         }
 
         System.out.println(maxarea);
