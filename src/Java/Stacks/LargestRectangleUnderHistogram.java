@@ -65,7 +65,7 @@ public class LargestRectangleUnderHistogram {
                 *   If stack top element is less than current element push
                 * */
 
-                if (input[stack.peek()] < input[i]) {
+                if (input[stack.peek()] <= input[i]) {
                     stack.push(i);
                 } else {
 
