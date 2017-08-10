@@ -13,6 +13,13 @@ public class bk {
         System.out.println();
     }
 
+    public static void print_boolenas(boolean arr[]) {
+        for (i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " " + "|" + " ");
+        }
+        System.out.println();
+    }
+
     public static void print_float(float arr[]) {
         for (i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " " + "|" + " ");
