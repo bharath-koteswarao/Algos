@@ -1,4 +1,6 @@
-package Java;
+package Java.Strings;
+
+import Java.bk;
 
 public class KmpAlgorithm {
 static int a;
