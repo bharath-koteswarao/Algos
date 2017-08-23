@@ -1,4 +1,4 @@
-package Java.Stacks.Hackerrank_Problems;
+package Datastructures.Stacks.Hackerrank_Problems;
 
 import java.util.ArrayList;
 import java.util.Scanner;
