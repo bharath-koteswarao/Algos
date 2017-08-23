@@ -1,6 +1,6 @@
-package Java.Strings;
+package Datastructures.Strings;
 
-import Java.bk;
+import Java.Datastructures.bk;
 
 public class KmpAlgorithm {
 static int a;

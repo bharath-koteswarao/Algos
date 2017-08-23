@@ -1,6 +1,6 @@
-package Java.Stacks.GeeksForGeeks;
+package Datastructures.Stacks.GeeksForGeeks;
 
-import Java.bk;
+import Java.Datastructures.bk;
 
 import java.util.Scanner;
 import java.util.Stack;

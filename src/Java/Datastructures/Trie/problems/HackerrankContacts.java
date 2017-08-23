@@ -1,4 +1,4 @@
-package Java.Trie.problems;
+package Datastructures.Trie.problems;
 
 import java.io.BufferedReader;
 import java.io.IOException;

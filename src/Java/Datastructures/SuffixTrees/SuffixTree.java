@@ -1,4 +1,4 @@
-package Java.SuffixTrees;
+package Datastructures.SuffixTrees;
 
 import java.util.Scanner;
 

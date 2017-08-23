@@ -1,4 +1,4 @@
-package Java.Trie;
+package Datastructures.Trie;
 
 /**
  * Created by bk on 23-07-2017.

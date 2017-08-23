@@ -1,4 +1,4 @@
-package Java.SuffixTrees.Problems;
+package Datastructures.SuffixTrees.Problems;
 
 /**
  * Created by BK on 29-07-2017.

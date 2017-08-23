@@ -1,4 +1,4 @@
-package Java.Strings;
+package Datastructures.Strings;
 
 /**
  * Created by bk on 22-07-2017.

@@ -1,6 +1,6 @@
-package Java.Stacks;
+package Datastructures.Stacks;
 
-import Java.bk;
+import Java.Datastructures.bk;
 
 import java.util.Stack;
 

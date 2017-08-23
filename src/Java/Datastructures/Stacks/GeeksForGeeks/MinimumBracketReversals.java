@@ -1,4 +1,4 @@
-package Java.Stacks.GeeksForGeeks;
+package Datastructures.Stacks.GeeksForGeeks;
 
 import java.util.Scanner;
 
