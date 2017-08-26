@@ -5,10 +5,12 @@ def main():
     que1 = deque([])
     que2 = deque([])
     n = int(input())
-    nums = []
+    inp = input()
+    nums = inp.split(" ")
     total = 0
+    for i in range(0, len(nums)):
+        nums[i] = int(nums[i])
     for i in range(0, n):
-        nums.append(int(input()))
         if nums[i] % 3 is 1:
             que1.append(nums[i])
         elif nums[i] % 3 is 2:
