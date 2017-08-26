@@ -8,8 +8,7 @@ def main():
     inp = input()
     nums = inp.split(" ")
     total = 0
-    for i in range(0, len(nums)):
-        nums[i] = int(nums[i])
+    nums = [int(x) for x in nums]
     for i in range(0, n):
         if nums[i] % 3 is 1:
             que1.append(nums[i])
