@@ -1,4 +1,4 @@
-package Java.Datastructures.Stacks.GeeksForGeeks;
+package Practice.Datastructures.Stacks.GeeksForGeeks;
 
 /**
  * Created by BK on 10-08-2017.
