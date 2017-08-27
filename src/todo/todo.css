@@ -1,0 +1,14 @@
+a{
+cursor:pointer;
+text-decoration:none;
+color:black
+}
+
+a:hover {
+color:green
+}
+
+li{
+margin-top: 5px;
+margin-bottom: 5px;
+}
