@@ -12,6 +12,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Python 3.6.2 (C:\Users\koteswarao\AppData\Local\Programs\Python\Python36-32\python.exe) interpreter library" level="application" />
+    <orderEntry type="library" exported="" name="Python 3.6.2 (C:\Users\koteswarao\AppData\Local\Programs\Python\Python36-32\python.exe) interpreter library" level="application" />
+    <orderEntry type="library" exported="" name="py lib" level="project" />
   </component>
 </module>
