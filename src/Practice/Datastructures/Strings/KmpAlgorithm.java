@@ -1,6 +1,6 @@
 package Datastructures.Strings;
 
-import Practice.Datastructures.bk;
+import Datastructures.bk;
 
 public class KmpAlgorithm {
     static int a;

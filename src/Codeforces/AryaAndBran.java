@@ -1,6 +1,6 @@
 package Codeforces;
 
-import Practice.Datastructures.bk;
+import Datastructures.bk;
 
 import java.util.Scanner;
 

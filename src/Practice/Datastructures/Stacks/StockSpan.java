@@ -1,6 +1,6 @@
 package Datastructures.Stacks;
 
-import Practice.Datastructures.bk;
+import Datastructures.bk;
 
 import java.util.Stack;
 
