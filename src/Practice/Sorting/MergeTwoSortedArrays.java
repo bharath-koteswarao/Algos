@@ -9,6 +9,10 @@ public class MergeTwoSortedArrays {
     public static void main(String... z) {
         int[] arr1 = {1, 2, 3, 4, 5};
         int[] arr2 = {10, 20, 30, 40, 50, 60};
+        int[] sorted = merge(arr1,arr2);
+        bk.print_int(sorted);
+    }
+    public static int[] merge(int[] arr1,int[] arr2) {
         int[] sorted = new int[arr1.length + arr2.length];
         for (int i = 0, j = 0, k = 0; k < sorted.length; k++) {
             if (i < arr1.length && j < arr2.length) {
@@ -29,6 +33,6 @@ public class MergeTwoSortedArrays {
                 }
             }
         }
-        bk.print_int(sorted);
+        return sorted;
     }
 }
