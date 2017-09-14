@@ -31,6 +31,16 @@ def merge_sort(arr):
         right = arr[mid:]
         merge_sort(left)
         merge_sort(right)
+
+        """
+        At each stage we take the array and split into left half and right half
+        
+        At that stage itself we merge it by the principle of merging two sorted halves
+        
+        So by end of that recursion stage the half ( either left or right ) becomes sorted
+        
+        """
+
         merge(arr, left, right)
 
 
