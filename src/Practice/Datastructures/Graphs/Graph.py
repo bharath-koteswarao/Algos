@@ -27,3 +27,6 @@ class Graph:
         if destination not in self.verticesList:
             self.verticesList[destination] = Vertex(destination)
         self.verticesList[source].addNeighbor(destination, weight)
+
+    def adj(self):
+        return self.verticesList
