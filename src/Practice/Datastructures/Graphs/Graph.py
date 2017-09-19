@@ -5,6 +5,9 @@ class Graph:
     def __init__(self):
         self.verticesList = {}
 
+    def verticesCount(self):
+        return len(self.verticesList)
+
     def addVertex(self, key):
         self.verticesList[key] = Vertex(key)
 
