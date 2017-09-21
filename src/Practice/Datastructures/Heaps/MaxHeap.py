@@ -19,13 +19,39 @@ class MaxHeap:
     def __init__(self, input_array):
         self.buildHeap(input_array)
         self.max_heapify(self.elements)
-        self.display_heap()
 
     def buildHeap(self, array):
         self.elements = [HeapNode(i, None, None) for i in array]
         for i in range(len(self.elements)):
             self.elements[i].left = self.elements[2 * i + 1] if (2 * i + 1) < len(self.elements) else None
             self.elements[i].right = self.elements[2 * i + 2] if (2 * i + 2) < len(self.elements) else None
+
+    def getMaxNode(self):
+        return self.elements[0]
+
+    def getParent(self, position):
+        parent_index = int((position - 2) / 2) if position % 2 is 0 else int((position - 1) / 2)
+        return self.getNode(parent_index)
+
+    def extract_max_node(self):
+        # Max node is the first node in the heap
+        # The process of extracting the max node of heap is as follows:
+        # Get the first element and store it to return
+        # Now replace the first element with last element and remove the last element
+        first_node = self.elements[0]
+        last_node = self.elements[len(self.elements) - 1]
+        temp = first_node.data
+        first_node.data = last_node.data
+        last_node.data = temp
+        parent = self.getParent(len(self.elements) - 1)
+        if parent.right is None:
+            parent.left = None
+        else:
+            parent.right = None
+        # After truncating the heap we have to remove the pointer of parent to this node
+        self.elements = self.elements[:len(self.elements) - 1]
+        self.balance_heap_after_extracting()
+        return last_node
 
     def getLastParentIndex(self):
         length = len(self.elements)
@@ -74,20 +100,41 @@ class MaxHeap:
                     node.data = node.left.data
                     node.left.data = temp
 
+    def getLastParent(self):
+        return self.elements[self.getLastParentIndex()]
+
+    def getNode(self, position):
+        return self.elements[position]
+
     def max_heapify(self, elements):
         last_parent = self.getLastParentIndex()
         for i in range(last_parent, -1, -1):
-            current_node = self.elements[i]
+            current_node = self.getNode(i)
             self.max_heapify_this_node(current_node)
-            if current_node.right is not None:
-                self.max_heapify_this_node(current_node.right)
-            if current_node.left is not None:
-                self.max_heapify_this_node(current_node.left)
+            for j in range(i + 1, last_parent + 1, 1):
+                # Here the loop runs from i + 1 since the current node is already
+                # Heapified and no point in doing it again
+                # So it heapifies every node after this node from top to bottom fashion
+                self.max_heapify_this_node(self.getNode(j))
 
     def display_heap(self):
         for i in self.elements:
             print(i.data, i.left.data if i.left is not None else None, i.right.data if i.right is not None else None)
 
+    def balance_heap_after_extracting(self):
+        # This method runs after extracting the max element of heap
+        last_parent_index = self.getLastParentIndex()
+        for i in range(0, last_parent_index + 1):
+            self.max_heapify_this_node(self.getNode(i))
+
+    def heap_sort(self):
+        # Running this method will empty the heap
+        while len(self.elements) is not 0:
+            print(self.extract_max_node().data, end=", ")
+
 
 if __name__ == "__main__":
-    hp = MaxHeap([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])
+    hp = MaxHeap([i for i in range(1, 16)])
+    hp.display_heap()
+    print("Heap sort : ", end=" ")
+    hp.heap_sort()
