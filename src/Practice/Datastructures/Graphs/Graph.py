@@ -5,6 +5,9 @@ class Graph:
     def __init__(self):
         self.verticesList = {}
 
+    def containsVertex(self, key):
+        return key in self.verticesList
+
     def getAllVertices(self):
         return self.verticesList
 
