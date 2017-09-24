@@ -1,27 +1,34 @@
-import math
+def max_factor(n):
+    m = int(n ** 0.5)
+    while n % m is not 0 and m >= 1:
+        m -= 1
+    if m == 1:
+        return n - 1
+    return int(max(m, n / m))
 
-n = int(input())
 
-
-def construct_list(number):
-    if number is 0:
+def min_moves(n, memo):
+    if n in memo:
+        return memo[n]
+    if n is 0:
         return 0
-    elif number is 1:
-        return 1
+    if n < 0:
+        return float("inf")
+    factor = max_factor(n)
+    if factor is n - 1:
+        memo[n] = min_moves(n - 1, memo) + 1
+        return memo[n]
     else:
-        for i in range(math.ceil(math.sqrt(number)), 1, -1):
-            if number % i == 0:
-                return max(i, number % i)
-        return -1
+        left = min_moves(n - 1, memo) + 1
+        right = min_moves(max_factor(n), memo) + 1
+        memo[n] = min(left, right)
+        return memo[n]
 
 
-for i in range(0, n):
-    l = [0, 1]
-    num = int(input())
-    for j in range(2, num + 1):
-        maxx = construct_list(j)
-        if maxx is -1:
-            l.append(1 + l[j - 1])
-        else:
-            l.append(1 + min(maxx, l[j - 1]))
-    print(l[num])
+if __name__ == '__main__':
+    tc = int(input())
+    for i in range(tc):
+        n = int(input())
+        memo = {}
+        ans = min_moves(n, memo)
+        print(ans)
