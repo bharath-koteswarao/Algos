@@ -1,3 +1,4 @@
+from pprint import pprint as pp
 def max_factor(n):
     m = int(n ** 0.5)
     while n % m is not 0 and m >= 1:
@@ -32,3 +33,4 @@ if __name__ == '__main__':
         memo = {}
         ans = min_moves(n, memo)
         print(ans)
+        # pp(memo)
