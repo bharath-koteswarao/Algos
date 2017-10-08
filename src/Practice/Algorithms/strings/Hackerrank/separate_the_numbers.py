@@ -8,7 +8,7 @@ if __name__ == '__main__':
         else:
             for i in range(0, len(inp) - 1):
                 strings.append(inp[0:i + 1])
-            answer_found = False
+            found_answer = False
             for s in strings:
                 temp = inp
                 ans = s
@@ -17,7 +17,7 @@ if __name__ == '__main__':
                     s = str(int(s) + 1)
                 if temp == "":
                     print("YES", ans)
-                    answer_found = True
+                    found_answer = True
                     break
-            if not answer_found:
+            if not found_answer:
                 print("NO")
