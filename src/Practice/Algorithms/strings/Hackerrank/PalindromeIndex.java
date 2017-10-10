@@ -20,7 +20,7 @@ public class PalindromeIndex {
                     if (inp.charAt(i) == inp.charAt(length - i - 1)) {
                         i += 1;
                     } else {
-                        if (isPalindrome(inp.substring(0,i)+inp.substring(i+1))) System.out.println(i);
+                        if (isPalindrome(inp.substring(0, i) + inp.substring(i + 1))) System.out.println(i);
                         else System.out.println(length - i - 1);
                         found = true;
                     }
