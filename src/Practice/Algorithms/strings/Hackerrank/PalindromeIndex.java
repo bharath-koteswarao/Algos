@@ -13,15 +13,17 @@ public class PalindromeIndex {
             String inp = sc.next();
             if (isPalindrome(inp)) System.out.println(-1);
             else {
-                int count = 0;
-                while (inp.charAt(0) == inp.charAt(inp.length() - 1)) {
-                    inp = inp.substring(1, inp.length() - 1);
-                    count += 1;
-                }
-                if (isPalindrome(inp.substring(1))) {
-                    System.out.println(count);
-                } else {
-                    System.out.println(inp.length()-1);
+                int i = 0;
+                boolean found = false;
+                int length = inp.length();
+                while (!found) {
+                    if (inp.charAt(i) == inp.charAt(length - i - 1)) {
+                        i += 1;
+                    } else {
+                        if (isPalindrome(inp.substring(0,i)+inp.substring(i+1))) System.out.println(i);
+                        else System.out.println(length - i - 1);
+                        found = true;
+                    }
                 }
             }
         }
