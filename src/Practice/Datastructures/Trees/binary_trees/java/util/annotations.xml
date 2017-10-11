@@ -1,0 +1,5 @@
+<root>
+    <item name='java.util.TreeSet E pollLast()'>
+        <annotation name='org.jetbrains.annotations.NotNull'/>
+    </item>
+</root>
