@@ -43,7 +43,7 @@ if __name__ == '__main__':
             if not (month == 2 and day > 28 and year % 4 == 0):
                 if calculate(year, month, day) == 1:
                     count += 1
-        while True:
+        while True and not (second[0] == year and second[1] == month and second[2] == day):
             calculated_day = calculate(year, month, 1)
             if calculated_day == 1:
                 count += 1
@@ -54,5 +54,9 @@ if __name__ == '__main__':
             if compare(year, month, second[0], second[1]):
                 break
         if calculate(second[0], second[1]) == 1:
-            count += 1
+            if second[0] % 4 != 0 and second[1] == 2 and second[2] > 28:
+                if calculate(second[0], 3) == 1:
+                    count += 1
+            else:
+                count += 1
         print(count)
