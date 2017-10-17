@@ -11,22 +11,29 @@ def fix_first_half(l, length, factorial, answer, total):
 
 def fix_second_half(first_answer, l, total, factorial, length, second_answer):
     # Fix the second half
-    if len(l) > 0:
-        print(l, total)
-        temp = factorial[length - 1]
-        if temp == total > 0:
-            return fix_second_half(first_answer, l[1:], total, factorial, length - 1, second_answer + l[0])
-        elif len(l) > 0:
-            count = 0
-            while total > temp:
-                temp += temp
-                count += 1
-
-            return fix_second_half(first_answer, l[:count] + l[count + 1:], total, factorial, length - 1,
-                                   second_answer + l[count])
-            pass
+    # print(l, total)
+    if len(l) == 1:
+        # print(l,total)
+        return first_answer + second_answer + l[0]
+    elif total == 0:
+        return first_answer + second_answer + str(''.join(reversed(l)))
     else:
-        return first_answer + second_answer
+        temp = factorial[length - 1]
+        if temp == total:
+            return fix_second_half(first_answer, l[1:], total,
+                                   factorial, length - 1, second_answer + l[0])
+            pass
+        else:
+            count = 0
+            while temp <= total:
+                temp += factorial[length - 1]
+                count += 1
+                if temp + factorial[length-1] > total:
+                    break
+            total -= temp
+            return fix_second_half(first_answer, l[:count] + l[count + 1:], total, factorial,
+                                   length - 1, second_answer + l[count])
+            pass
 
 
 if __name__ == '__main__':
@@ -45,10 +52,10 @@ if __name__ == '__main__':
         11: 39916800,
         12: 479001600,
         13: 6227020800, }
-    tc = 1 #int(input().strip())
-    for i_tc in range(tc):
-        n = int(input().strip())
-        l = list('abcdefghijklm')
+    tc = int(input().strip())
+    for i_tc in range(1, tc + 1):
+        # n = int(input().strip())
+        l = list('abcd')
         length = len(l)
-        answer = fix_first_half(l, length, factorial, "", n)
+        answer = fix_first_half(l, length, factorial, "", i_tc)
         print(answer)
