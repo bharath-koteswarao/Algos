@@ -1,4 +1,4 @@
-package Datastructures.Networking;
+package Networking;
 
 import java.io.DataInputStream;
 import java.io.IOException;
