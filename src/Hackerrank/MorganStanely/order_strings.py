@@ -27,9 +27,7 @@ if __name__ == '__main__':
             dic[l[i][key - 1] + '0' * count] = l[i]
             count += 1
     if order == "lexicographic":
-        arr = sorted(list(dic.keys()))
-        if rev == "true":
-            arr = arr[::-1]
+        arr = sorted(list(dic.keys()), reverse=rev == "true")
         for i in arr:
             lis = dic[i]
             for j in lis:
@@ -46,9 +44,7 @@ if __name__ == '__main__':
                 nex += 1
                 conv[replace] = i
         keys = list(conv.keys())
-        keys = sorted(keys)
-        if rev == "true":
-            keys = keys[::-1]
+        keys = sorted(keys, reverse=rev == "true")
         for i in keys:
             con = conv[i]
             lis = dic[con]
