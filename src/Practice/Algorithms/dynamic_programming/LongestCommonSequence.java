@@ -1,5 +1,7 @@
 package Algorithms.dynamic_programming;
 
+import Datastructures.bk;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -19,6 +21,10 @@ public class LongestCommonSequence {
             for (int[] arr : memo) Arrays.fill(arr, -1);
             int answer = lcs(s1, s2, memo, 0, s1.length(), 0, s2.length());
             System.out.println(answer);
+            int[][] bu_memo = new int[s1.length() + 1][s2.length() + 1];
+            int bu_ans = bottom_up(s1, s2, bu_memo);
+            for (int[] ar:bu_memo) bk.print_int(ar);
+            System.out.println(bu_ans);
         }
     }
 
@@ -37,5 +43,14 @@ public class LongestCommonSequence {
             }
             return memo[begin1][begin2];
         }
+    }
+    private static int bottom_up(String s1, String s2, int[][] bu_memo) {
+        for (int j = s2.length() - 1; j >= 0; j--) {
+            for (int i = s1.length() - 1; i >= 0; i--) {
+                if (s1.charAt(i) == s2.charAt(j)) bu_memo[i][j] = 1 + bu_memo[i + 1][j + 1];
+                else bu_memo[i][j] = Math.max(bu_memo[i][j + 1], bu_memo[i + 1][j]);
+            }
+        }
+        return bu_memo[0][0];
     }
 }
