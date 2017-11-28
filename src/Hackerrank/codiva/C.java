@@ -26,22 +26,13 @@ public class C {
         for (int[] ar : memo) Arrays.fill(ar, 0);
         int lcs = findLcs(s1, s2, 0, 0, memo);
         for (int[] ar : memo) bk.print_int(ar);
-        System.out.println(getLcs(s1, s2, memo, s1.length() - 1, s2.length() - 1));
+        System.out.println(lcs);
         if (lcs >= k) System.out.println(0);
         else if (lcs + k > s2.length() || lcs + k > s1.length()) {
             System.out.println(-1);
         } else {
-            String seq = getLcs(s1, s2, memo, s1.length(), s2.length());
-        }
-    }
-
-    private static String getLcs(String s1, String s2, int[][] memo, int i, int j) {
-        String ret = "";
-        int cur = 0;
-        while (i >= 0 && j >= 0) {
 
         }
-        return ret;
     }
 
     private static int findLcs(String s1, String s2, int i, int j, int[][] memo) {
