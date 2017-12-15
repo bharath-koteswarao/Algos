@@ -1,40 +1,36 @@
-def pf(n):
-    dic = {}
-    count = 0
-    while n % 2 == 0 and n is not 0:
-        n >>= 1
-        count += 1
-    if count > 0:
-        dic[count] = count
+def find_lpf(n):
+    las = 0
+    while n % 2 == 0 and n != 0:
+        n = n // 2
+        las = 2
     for i in range(3, int(n ** 0.5) + 1, 2):
-        count = 0
-        while n % i == 0 and n > 0:
+        while n % i == 0 and n != 0:
             n = n // i
-            count += 1
-        dic[i] = count
+            las = i
     if n > 2:
-        dic[n] = 1
-    return dic
+        las = n
+    return las
+
+
+def find_all(n, lpf):
+    if n not in lpf:
+        lpf[n] = find_lpf(n)
+        find_all(n // lpf[n], lpf)
+    pass
 
 
 if __name__ == '__main__':
     n = int(input().strip())
-    l = [int(i) for i in input().strip().split(" ")]
+    arr = [int(i) for i in input().strip().split(" ")]
+    lpf = {1: 1}
+    for i in arr:
+        find_all(i, lpf)
     ans = 0
-    for i in l:
-        primes = pf(i)
-        if i in primes:
-            ans += i + 1
-        else:
-            md = 0
-            d = []
-            if i % 2 == 0:
-                for p in range(2, int(i ** 0.5) + 1):
-                    if i % p == 0:
-                        d.append(p)
-                print(d)
-            else:
-                for p in range(3, int(i ** 0.5) + 1, 2):
-                    if i % p == 0:
-                        d.append(p)
+    for i in arr:
+        temp, su = 1, 1
+        while i != 1:
+            temp *= lpf[i]
+            i //= lpf[i]
+            su += temp
+        ans += su
     print(ans)

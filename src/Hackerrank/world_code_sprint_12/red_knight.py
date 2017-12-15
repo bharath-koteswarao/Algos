@@ -1,23 +1,39 @@
 if __name__ == '__main__':
-    _ = int(input().strip())
-    __, ___, ____, _____ = [int(______) for ______ in input().strip().split(" ")]
-    if abs(_____ - ___) % 2 == 1 or abs(____ - __) % 2 == 1:
+    n = [int(i) for i in input().strip().split(" ")]
+    x1, y1, x2, y2 = [int(i) for i in input().strip().split(" ")]
+    if abs(x1 - x2) % 2 == 1:
         print("Impossible")
-    elif __ == ___:
-        if ____ < _____:
-            while ____ != _____:
-                ____ += 2
+    elif x1 == x2:
+        print(abs(y1 - y2) // 2)
+        while y1 != y2:
+            if y1 < y2:
                 print("R", end=" ")
-        else:
-            while ____ != _____:
-                ____ -= 2
+                y1 += 2
+            else:
                 print("L", end=" ")
-    elif ____ == _____:
-        if __ < ____:
-            while __ != ____:
-                print("UL", end=" ")
-                __ += 1
-        else:
-            while __ != ____:
-                print("LL", end=" ")
-                __ -= 1
+                y1 -= 2
+    elif y1 == y2:
+        count = 0
+        print(abs(x1 - x2) // 2)
+        while x1 != x2:
+            if x1 < x2:
+                x1 += 2
+                print("LR" if count % 2 == 0 else "LL", end=" ")
+            else:
+                x1 -= 2
+                print("UL" if count % 2 == 0 else "UR", end=" ")
+            count += 1
+    else:
+        if x2 < x1 and y2 > y1:
+
+            # top right
+            pass
+        elif x2 > x1 and y2 > y1:
+            # bottom right
+            pass
+        elif x2 > x1 and y2 < y1:
+            # bottom left
+            pass
+        elif x2 < x1 and y2 < y1:
+            # top left
+            pass
