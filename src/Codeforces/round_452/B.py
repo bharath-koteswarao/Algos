@@ -7,7 +7,7 @@ if __name__ == '__main__':
     x = str(m)[1:-1]
     y = str(arr)[1:-1]
     r = y.replace('29', '28')
-    if y in x or r in x:
+    if (y in x or r in x) and arr.count(29) < 2:
         print("YES")
     else:
         print("NO")
