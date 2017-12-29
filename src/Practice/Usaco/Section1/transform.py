@@ -19,7 +19,9 @@ def rotate(inp):
 
 
 def reflection(tempInp):
-    tempInp = tempInp[::-1]
+    for i in range(len(tempInp)):
+        tempInp[i] = tempInp[i][::-1]
+    inp[:] = tempInp[:]
     return tempInp
 
 
@@ -34,20 +36,30 @@ if __name__ == '__main__':
         op.append(list(fin.readline().strip()))
     tempInp = inp[:]
     ans = ""
+    found = False
     if inp == op:
         ans = str(6)
-    elif rotate(tempInp) == op:
-        ans = str(1)
-    elif rotate(tempInp) == op:
-        ans = str(2)
-    elif rotate(tempInp) == op:
-        ans = str(3)
-        tempInp[:] = inp[:]
-    elif reflection(tempInp) == op:
-        ans = str(4)
-    elif rotate(tempInp) == op:
-        ans = str(5)
+        found = True
     else:
+        for i in range(1, 4):
+            rotate(tempInp)
+            if tempInp == op:
+                ans = str(i)
+                found = True
+                break
+    if not found:
+        inp = reflection(inp)
+        if inp == op:
+            ans = str(4)
+            found = True
+        else:
+            for i in range(3):
+                rotate(inp)
+                if inp == op:
+                    ans = str(5)
+                    found = True
+                    break
+    if not found:
         ans = str(7)
     fout.write(ans + "\n")
     fout.close()

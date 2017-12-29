@@ -1,0 +1,17 @@
+{
+  "1": {
+    "title": "sliding window problem in queues from geeks for geeks",
+    "url": "http://www.geeksforgeeks.org/sliding-window-maximum-maximum-of-all-subarrays-of-size-k/"
+  },
+  "2": {
+    "url": "http://www.geeksforgeeks.org/minimum-time-required-so-that-all-oranges-become-rotten/",
+    "title": "minimum time required to rot all oranges"
+  },
+  "3": {
+    "url": "http://www.geeksforgeeks.org/iterative-method-to-find-height-of-binary-tree/",
+    "title": "Iterative method to find height of binary tree"
+  },
+  "4": {
+    "title": "Solve name num problem of usaco without using python built in library"
+  }
+}
