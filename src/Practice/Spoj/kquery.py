@@ -1,6 +1,11 @@
 """16 8 7 4 3 2 1"""
 from bisect import bisect_left as bs
 
+""" This is giving wrong answer do it again"""
+
+
+# todo
+
 
 class Node:
     lis = []
@@ -48,8 +53,10 @@ def mergeSort(arr, l, r, node):
 def query(l, r, start, end, k, node):
     cur = segTree[node].lis
     if l == start and r == end:
+        print(cur, k)
         return len(cur) - bs(cur, k + 0.1)
     elif l <= start <= end <= r:
+        print(cur, k)
         return len(cur) - bs(cur, k + 0.1)
     elif l <= start <= r <= end or start <= l <= end <= r or start <= l <= r <= end:
         mid = (start + end) // 2
