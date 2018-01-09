@@ -1,14 +1,15 @@
 if __name__ == '__main__':
     n = int(input().strip())
-    arr = [int(i) for i in range(1, n + 1)]
-    if n == 2:
-        print(1)
-        print(1, 1)
-    elif n == 3:
-        print(0)
-        print(2, 1, 2)
-    else:
-        if n % 2 == 0:
-            if n % 4 == 0:
-                print(0)
-
+    l1, l2 = [], []
+    s1, s2 = 0, 0
+    for i in range(n, 0, -1):
+        if s1 < s2:
+            s1 += i
+            l1.append(i)
+        else:
+            s2 += i
+            l2.append(i)
+    print(abs(s1 - s2))
+    print(len(l1), end=" ")
+    for i in l1:
+        print(i, end=" ")
