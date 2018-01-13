@@ -32,14 +32,17 @@ if __name__ == "__main__":
             if k == 1:
                 print(ma1)
             else:
-                l2, r2, ma2 = get(arr + arr)
-                if l2 == 0 and r2 == 2 * n - 1:
-                    print(k * ma1)
-                elif l2 == 0 and r2 < 2 * n - 1:
-                    bar = sum(arr[r1 + 1:])
-                    print(k * ma1 + (k - 1) * bar)
-                elif l2 != 0 and r2 != 2 * n - 1:
-                    print(ma2)
-                else:
-                    bar = sum(arr[:l1])
-                    print(k * ma1 + (k - 1) * bar)
+                if l1 == 0 and r1 < n - 1:
+                    l11, r11, ma11 = get(arr[r1 + 1:] + arr[:l1 + 1])
+                    if ma11 >= ma1:
+                        bar = sum(arr[r1 + 1:r1 + 1 + l11])
+                        if abs(bar) < ma1:
+                            print(k * ma1 + (k - 1) * sum(arr[r1 + 1:]))
+                        elif ma1 <= abs(bar) < ma11:
+                            print((k - 1) * ma11 + (k - 2) * bar)
+                        else:
+                            print(ma11)
+                    else:
+                        print(ma1)
+                elif l1 > 0 and r1 < n - 1:
+                    pass
