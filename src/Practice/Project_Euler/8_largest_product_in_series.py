@@ -1,15 +1,18 @@
+# todo
 """
 This solution has to be optimised
 """
 
 if __name__ == '__main__':
-    tc = int(input())
-    for i_tc in range(tc):
-        l, k = [int(i) for i in input().strip().split(" ")]
-        nums = [int(i) for i in list(str(int(input().strip())))]
-        mul_pos = []
-        mul = 1
-        for i in nums:
-            mul *= i
-            mul_pos.append(mul)
-        print(mul_pos)
+    for _ in range(int(input().strip())):
+        n, k = [int(i) for i in input().strip().split()]
+        num = [int(i) for i in list(input().strip())]
+        ma = 0
+        for i in range(n - k):
+            temp = 1
+            for j in range(i, i + k):
+                temp *= num[j]
+                if temp == 0:
+                    break
+            ma = max(ma, temp)
+        print(ma)

@@ -34,6 +34,7 @@ if __name__ == "__main__":
             else:
                 if l1 == 0 and r1 < n - 1:
                     l11, r11, ma11 = get(arr[r1 + 1:] + arr[:l1 + 1])
+                    print(arr[r1 + 1:] + arr[:l1 + 1])
                     if ma11 >= ma1:
                         bar = sum(arr[r1 + 1:r1 + 1 + l11])
                         if abs(bar) < ma1:
@@ -45,4 +46,8 @@ if __name__ == "__main__":
                     else:
                         print(ma1)
                 elif l1 > 0 and r1 < n - 1:
+                    pass
+                    pass
+                elif l1 > 0 and r1 == n - 1:
+                    pass
                     pass

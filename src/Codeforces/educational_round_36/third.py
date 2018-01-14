@@ -1,16 +1,16 @@
 if __name__ == '__main__':
-    a = [int(i) for i in list(input().strip())]
-    b = [int(i) for i in list(input().strip())]
-    if len(b) > len(a):
-        a.sort(reverse=True)
+    a = list(input().strip())
+    b = int(input().strip())
+    if len(str(b)) > len(str(a)):
         ans = ""
-        for i in a:
+        for i in sorted(a)[::-1]:
             ans += str(i)
         print(ans)
     else:
-        a.sort(reverse=True)
-        j,k = 0,0
         ans = ""
-        while True:
-            if a[j] == b[k]:
-                pass
+        a.sort(reverse=True)
+        while len(a) > 0:
+            for i in range(len(a)):
+                if int(a[i] + ''.join(a[i + 1:][::-1] + a[:i][::-1])) < b:
+                    ans += str(a[i])
+        print(ans)
