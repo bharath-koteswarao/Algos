@@ -8,6 +8,9 @@ out/
 src/Practice/Datastructures/Trees/__pycache__/
 src/Practice/Datastructures/Trees/binary_trees/__pycache__/
 /src/Practice/Datastructures/Graphs/march_of_king.py
-/src/Practice/Project_Euler/8_largest_product_in_series.py
 /src/Practice/Project_Euler/temp.py
-/src/Practice/Usaco/Section1/beads.java
+src/Practice/Algorithms/strings/__pycache__/
+src/Practice/Datastructures/Graphs/__pycache__/
+src/Practice/Datastructures/Heaps/__pycache__/
+src/Practice/Usaco/Section1/namenum.out
+src/Practice/Usaco/Section1/transform.out
