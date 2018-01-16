@@ -6,6 +6,10 @@ class Vertex:
     def addNeighbor(self, key, weight):
         self.connections[key] = weight
 
+    def removeNeighbor(self, key):
+        if key in self.connections:
+            del self.connections[key]
+
     def edgeLength(self, destination):
         return self.connections[destination.key]
 

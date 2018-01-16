@@ -37,5 +37,9 @@ class Graph:
             self.verticesList[destination] = Vertex(destination)
         self.verticesList[source].addNeighbor(destination, weight)
 
+    def removeEdge(self, source, destination):
+        if source in self.verticesList and destination in self.verticesList:
+            self.verticesList[source].removeNeighbor(destination)
+
     def adj(self):
         return self.verticesList
