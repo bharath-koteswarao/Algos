@@ -1,16 +1,27 @@
-if __name__ == '__main__':
-    a = list(input().strip())
-    b = int(input().strip())
-    if len(str(b)) > len(str(a)):
-        ans = ""
-        for i in sorted(a)[::-1]:
-            ans += str(i)
-        print(ans)
+def find(a, b, ans):
+    if len(a) > 0:
+        for i in range(len(a)):
+            test = int(ans + a[i] + ''.join(sorted(a[:i] + a[i + 1:])))
+            if test <= b:
+                return find(a[:i] + a[i + 1:], b, ans + a[i])
     else:
-        ans = ""
-        a.sort(reverse=True)
-        while len(a) > 0:
-            for i in range(len(a)):
-                if int(a[i] + ''.join(a[i + 1:][::-1] + a[:i][::-1])) < b:
-                    ans += str(a[i])
-        print(ans)
+        return ans
+
+
+if __name__ == '__main__':
+    a = int(input().strip())
+    b = int(input().strip())
+    if a == b:
+        print(a)
+    else:
+        a = list(str(a))
+        if len(str(b)) > len(str(a)):
+            ans = ""
+            for i in sorted(a)[::-1]:
+                ans += str(i)
+            print(ans)
+        else:
+            found = False
+            a.sort(reverse=True)
+            ans = find(a, b, "")
+            print(ans)
