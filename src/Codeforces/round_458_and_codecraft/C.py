@@ -1,4 +1,4 @@
-# todo Giving wrong answer make it correct
+# todo decomp is correct but process in some where wrong
 def comb(n, r, dic):
     r = min(r, n - r)
     if n == r:
@@ -14,31 +14,35 @@ def comb(n, r, dic):
         return dic[(n, r)]
 
 
+def collapse(n):
+    ans = 0
+    if n == 1:
+        return 0
+    else:
+        while n != 1:
+            ans += 1
+            n = bin(n)[2:].count('1')
+        return ans
+
+
 if __name__ == '__main__':
     mod = 1000000007
+    decomp = {1: 0}
     dic = {}
-    decomp = {1: 1}
-    for i in range(2, 1000):
-        n = i
-        c = 0
-        while n != 1:
-            if n in decomp:
-                c += decomp[n]
-                break
-            else:
-                c += 1
-                n = bin(n)[2:].count('1')
-                c += 1 if n == 1 else 0
-        decomp[i] = c
-    n = input().strip()
+    for i in range(2, 1001):
+        decomp[i] = collapse(i)
+    num = input().strip()
     k = int(input().strip())
-    l = len(n)
-    count = n.count('1')
+    ones = num.count('1')
     ans = 0
-    if decomp[count] == k:
-        ans += comb(l, count, dic) % mod
+    l = len(num)
+    if decomp[ones] == k:
+        ans += comb(l, ones, dic)
     l -= 1
-    for i in range(1, len(n)):
-        if decomp[i] == k and i != count:
-            ans += comb(l, i, dic) % mod
+    for i in range(1, l + 1):
+        if i != ones:
+            if decomp[i] == k:
+                ans += comb(l, i, dic) % mod
     print(ans)
+    # for i in decomp:
+    #     print(decomp[i], end=" ")
