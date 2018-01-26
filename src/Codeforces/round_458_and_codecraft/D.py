@@ -1,51 +1,57 @@
-class Node:
-    pf = {}
-    lis = []
+from math import gcd as getGcd
 
-    def __init__(self, pf):
-        self.pf = pf
+
+class Node:
+    gcd = 0
+    count = 0
 
     def __repr__(self):
-        return str(self.pf) + str(self.lis)
+        return str(self.gcd)
 
 
-def getPf(n):
-    if n == 1:
-        return {1: 1}
-    else:
-        dic = {}
-        c = 0
-        while n % 2 == 0 and n != 0:
-            c += 1
-            n //= 2
-        if c > 0:
-            dic[2] = c
-        for i in range(3, int(n ** 0.5) + 1):
-            c = 0
-            while n % i == 0 and n != 0:
-                c += 1
-                n //= i
-            if c > 0:
-                dic[i] = c
-        if n > 1:
-            dic[n] = 1
-        return dic
-
-
-def build(segTree, start, end, node):
+def build(start, end, node):
     if start == end:
-        segTree[node] = Node(getPf(arr[start]))
+        segTree[node].gcd = arr[start]
+        if arr[start] == 1:
+            segTree[node].count = 1
+        else:
+            segTree[node].count = 0
     else:
         mid = (start + end) // 2
-        build(segTree, start, mid, 2 * node + 1)
-        build(segTree, mid + 1, end, 2 * node + 2)
-        # segTree[node].lis.append(segTree[2 * node + 1].pf)
-        # segTree[node].lis.append(segTree[2 * node + 2].pf)
+        build(start, mid, (2 * node) + 1)
+        build(mid + 1, end, (2 * node) + 2)
+        segTree[node].gcd = getGcd(segTree[(2 * node) + 1].gcd, segTree[(2 * node) + 2].gcd)
+        # segTree[node].count = segTree[2 * node + 1].count + segTree[2 * node + 2].count
+
+
+def query(l, r, start, end, g, node):
+    if l == start and r == end:
+        if segTree[node].gcd == g:
+            return 0
+        else:
+            return 1
+    elif l <= start <= end <= r:
+        if segTree[node].gcd == g:
+            return 0
+        else:
+            return 1
+    elif l <= start <= r <= end or start <= l <= end <= r or start <= l <= r <= end:
+        mid = (start + end) // 2
+        return query(l, r, start, mid, g, 2 * node + 1) + query(l, r, mid + 1, end, g, 2 * node + 2)
+    else:
+        return 0
 
 
 if __name__ == '__main__':
     n = int(input().strip())
     arr = [int(i) for i in input().strip().split()]
-    segTree = [0] * 4 * n
-    build(segTree, 0, n - 1, 0)
+    segTree = [Node() for i in range(4 * n)]
+    build(0, n - 1, 0)
     print(segTree)
+    tc = int(input().strip())
+    for _ in range(tc):
+        inp = [int(i) for i in input().strip().split()]
+        if inp[0] == 1:
+            f, l, r, g = inp
+            res = query(l - 1, r - 1, 0, n - 1, g, 0)
+            print(res)

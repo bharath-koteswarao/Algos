@@ -4,15 +4,29 @@ if __name__ == '__main__':
     n = int(input().strip())
     a = int(input().strip())
     b = int(input().strip())
-    if n % a == 0 or n % b == 0:
+    if n % g(a, b) == 0 and n >= max(a, b):
         print("YES")
-        if n % a == 0:
-            print(n // a, 0)
+        i = 0
+        found = False
+        while True:
+            y = (n - a * i) / b
+            if y == int(y) and y > 0:
+                found = True
+                break
+            else:
+                i += 1
+            if a * i > n:
+                break
+        if found:
+            print(i, int(n - a * i) // b)
         else:
-            print(n // b, 0)
+            i = 0
+            while True:
+                y = (n - b * i) / a
+                if y == int(y) and y > 0:
+                    break
+                else:
+                    i += 1
+            print(int(n - a * i) // a, i)
     else:
-        if n % g(a, b) == 0:
-            print("YES")
-            re = n % a
-        else:
-            print("NO")
+        print("NO")
