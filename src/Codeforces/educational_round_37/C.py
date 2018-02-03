@@ -3,41 +3,25 @@
 1 2 5 3 4 6
 01110
 """
+
+
+def sort_this_part(start, end):
+    so = sorted(arr)
+    arr[start:end + 1] = so[start:end + 1]
+
+
 if __name__ == '__main__':
     n = int(input().strip())
     arr = [int(i) for i in input().strip().split()]
-    l = list(input().strip())
-    l.append('1')
-    dic = {}
-    ind = 0
-    for i in arr:
-        dic[i] = ind
-        ind += 1
-    ones = []
-    c = 0
-    for i in l:
-        if i == '1':
-            c += 1
-        ones.append(c)
-    so = sorted(arr)
-    possible = True
-    check = {}
-    for ii in range(n):
-        if so[ii] != arr[ii]:
-            idx = dic[so[ii]]
-            lis = l[min(idx, ii): max(idx, ii)]
-            if ii == 0:
-                co = ones[idx]
-            elif idx == 0:
-                co = ones[ii]
-            else:
-                co = abs(ones[max(idx, ii)] - ones[min(idx, ii) - 1])
-            if co == abs(idx - ii) + 1:
-                pass
-            elif co == abs(idx - ii) and l[max(idx,ii)] == '0':
-                pass
-            else:
-                possible = False
-        if not possible:
-            break
-    print("YES" if possible else "NO")
+    l = list(input().strip()) + ['0']
+    i = 0
+    while i < n - 1:
+        if l[i] == '1':
+            start = i
+            while l[i] == '1' and i < n - 1:
+                i += 1
+            i += 1
+            sort_this_part(start, i)
+        else:
+            i += 1
+    print("YES" if arr == sorted(arr) else "NO")
