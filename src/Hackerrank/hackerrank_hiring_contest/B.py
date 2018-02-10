@@ -1,25 +1,22 @@
 if __name__ == '__main__':
+    n = int(input().strip())
     l = []
-    for _ in range(int(input().strip())):
-        inp = sorted(list(set(input().strip())))
-        build = ""
-        i, j = 0, 0
-        while i < 10:
-            if j < len(inp) and str(i) == inp[j]:
-                build += '1'
-                i += 1
-                j += 1
-            else:
-                build += '0'
-                i += 1
-        l.append(build)
+    for _ in range(n):
+        temp = ['0' for i in range(10)]
+        st = input().strip()
+        for i in st:
+            temp[int(i)] = '1'
+        l.append(''.join(temp))
     dic = {}
     for i in l:
-        nu = int(i, 2)
-        if nu in dic:
-            dic[nu] += 1
-        else:
-            dic[nu] = 1
-    print(l)
-    for i in dic:
-        print(1023 - i)
+        for j in range(1, len(i) + 1):
+            x = int(i[-1 * j:], 2)
+            if x in dic:
+                dic[x] += 1
+            else:
+                dic[x] = 1
+    ans = 0
+    for i in l:
+        req = int(i, 2)
+        if req in dic:
+            print(dic[req])
