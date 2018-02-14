@@ -8,17 +8,18 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.min;
 
 public class RaceAgTime {
     static long[][] movingCost;
     static long[][] memo;
+    static long[] heights;
+    static long[] prices;
 
     public static void main(String[] __) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        long[] heights = new long[n + 1];
-        long[] prices = new long[n + 1];
+        heights = new long[n + 1];
+        prices = new long[n + 1];
         heights[0] = sc.nextInt();
         prices[0] = 0;
         for (int i = 1; i < n; i++) heights[i] = sc.nextInt();
@@ -37,21 +38,22 @@ public class RaceAgTime {
             }
         }
         movingCost[0][0] = 0;
-        for (long[] ar : movingCost) System.out.println(Arrays.toString(ar));
-        long ans = getAns(0, 1, 0, n);
-        System.out.println(ans);
+//        for (long[] ar : movingCost) System.out.println(Arrays.toString(ar));
+        System.out.println(getAns(0,0,n));
     }
 
-    private static long getAns(int i, int j, long ans, int n) {
-        System.out.println(i+" "+j);
-        if (j == n) return ans;
+    private static long getAns(int idx, long ans, int n) {
+        if (idx == n) return ans;
         else {
-            long mi = Long.MAX_VALUE;
-            while (movingCost[i][j] != -1 && j < n) {
-                mi = min(mi, getAns(j, j + 1, ans + movingCost[i][j], n));
-                j += 1;
+            long min = Long.MAX_VALUE;
+            boolean breakNext = false;
+            while (idx < n & !breakNext) {
+                min = Math.min(min, getAns(idx + 1, ans + (idx + 1 == n ? 0 : abs(heights[idx + 1] - heights[idx])) + prices[idx], n));
+                if (breakNext) break;
+                breakNext = heights[idx + 1] > heights[idx];
+                idx += 1;
             }
-            return mi;
+            return min;
         }
     }
 }
