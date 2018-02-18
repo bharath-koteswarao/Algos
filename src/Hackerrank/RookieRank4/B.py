@@ -1,33 +1,32 @@
-from bisect import bisect_left as bs
-
 if __name__ == '__main__':
     n = int(input().strip())
     pos = [int(_) for _ in input().strip().split()]
     hts = [int(_) for _ in input().strip().split()]
     left = True
-    nex = 0
-    i = 0
-    while True:
-        nex = bs(pos, pos[i] + hts[i])
-        if nex >= n:
-            break
+    l = []
+    for i in range(n):
+        l.append((pos[i], pos[i] + hts[i]))
+    l.sort(key=lambda x: (x[0], x[1]))
+    maxr = l[0][1]
+    for i in range(1, n):
+        if l[i][0] <= maxr:
+            maxr = max(maxr, l[i][1])
         else:
-            if pos[i] + hts[i] < pos[nex]:
-                left = False
-                break
-            i += 1
+            left = False
+            break
+    left = maxr >= pos[-1]
+    l = []
+    for i in range(n - 1, -1, -1):
+        l.append((pos[i], pos[i] - hts[i]))
     right = True
-    nex = n - 1
-    i = n - 1
-    while True:
-        nex = bs(pos, pos[i] - hts[i])
-        if nex == 0:
-            break
+    minl = l[0][1]
+    for i in range(1, n):
+        if l[i][0] >= minl:
+            minl = min(minl, l[i][1])
         else:
-            if pos[i] - hts[i] > pos[nex]:
-                right = False
-                break
-            i -= 1
+            right = False
+            break
+    right = minl <= pos[0]
     if left and right:
         print("BOTH")
     elif left:
