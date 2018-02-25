@@ -64,19 +64,30 @@ public class Dquery {
         int[] freq = new int[max + 1];
         int ans = 0;
         for (Query query : queries) {
+            Hashtable<Integer,Integer> ht = new Hashtable<>();
             int l = query.l, r = query.r;
             for (int i = cl; i < l; i++) {
                 freq[arr[i]] -= 1;
-                ans -= freq[arr[i]] == 0 ? 1 : 0;
+                if (freq[arr[i]] == 0) {
+                    ans -= 1;
+                }
             }
             for (int i = cl - 1; i >= l; i--) {
                 freq[arr[i]] += 1;
-                ans += freq[arr[i]] == 1 ? 1 : 0;
+                if (freq[arr[i]] == 1) {
+                    ans += 1;
+                }
+                else {
+                    if (!ht.containsKey(arr[i])) {
+                        ans -= 1;
+                        ht.put(arr[i],0);
+                    }
+                }
             }
             cl = l;
             for (int i = cr; i > r; i--) {
                 freq[arr[i]] -= 1;
-                ans -= freq[arr[i]] == 0 ? 1 : 0;
+                if (freq[arr[i]] == 0) ans -= 1;
             }
             for (int i = cr + 1; i <= r; i++) {
                 /* This loop assumes that it has calculated values for cr - 1
@@ -85,11 +96,25 @@ public class Dquery {
                  */
                 if (first) {
                     freq[arr[0]] += 1;
-                    ans += freq[arr[0]] == 1 ? 1 : 0;
+                    if (freq[arr[0]] == 1) {
+                        ans += 1;
+                    } else {
+                        if (!ht.containsKey(arr[i])) {
+                            ans -= 1;
+                            ht.put(arr[i],0);
+                        }
+                    }
                     first = false;
                 }
                 freq[arr[i]] += 1;
-                ans += freq[arr[i]] == 1 ? 1 : 0;
+                if (freq[arr[i]] == 1) {
+                    ans += 1;
+                } else {
+                    if (!ht.containsKey(arr[i])) {
+                        ans -= 1;
+                        ht.put(arr[i],0);
+                    }
+                }
             }
             cr = r;
             answers.put(query.i, ans);
