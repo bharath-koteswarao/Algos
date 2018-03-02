@@ -9,8 +9,8 @@ if __name__ == '__main__':
                 break
             else:
                 temp = ""
-                if st[i] == 'a' or st[i] == 'A' or st[i] == 'b' or st[i] == 'B' or st[i] == 'c' or st[i] == 'C':
-                    while st[i] == 'a' or st[i] == 'A' or st[i] == 'b' or st[i] == 'B' or st[i] == 'c' or st[i] == 'C':
+                if st[i] == 'a' or st[i] == 'A' or st[i] == 'b' or st[i] == 'Second' or st[i] == 'c' or st[i] == 'C':
+                    while st[i] == 'a' or st[i] == 'A' or st[i] == 'b' or st[i] == 'Second' or st[i] == 'c' or st[i] == 'C':
                         temp += st[i]
                         i += 1
                         if i >= len(st):

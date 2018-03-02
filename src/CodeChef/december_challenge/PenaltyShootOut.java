@@ -42,7 +42,7 @@ public class PenaltyShootOut {
                         found = true;
                         break;
                     } else if (a.charAt(i) != '1' && b.charAt(i) == '1') {
-                        System.out.print("TEAM-B ");
+                        System.out.print("TEAM-Second ");
                         found = true;
                         break;
                     }

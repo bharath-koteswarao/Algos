@@ -25,7 +25,7 @@ if __name__ == '__main__':
                     wb.append((i, j))
                 elif board[i][j] == 'N':
                     wn.append((i, j))
-                elif board[i][j] == 'B':
+                elif board[i][j] == 'Second':
                     wb.append((i, j))
                 elif board[i][j] == 'R':
                     wr.append((i, j))
