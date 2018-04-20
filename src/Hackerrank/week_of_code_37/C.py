@@ -1,3 +1,5 @@
+from math import floor
+
 """
 5
 0 0 0 0 2 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0
@@ -18,26 +20,5 @@
 if __name__ == '__main__':
     for _ in range(int(input().strip())):
         l = [int(__) for __ in input().strip().split()]
-        l = [__ for __ in l if __ > 0]
-        ans = 0
-        car, i = 0, 0
-        while i < len(l) - 1:
-            if l[i] % 2 == 1:
-                l[i + 1] += 1
-                car = l[i] - 1
-                l[i] = 0
-            else:
-                car = l[i] - 1
-                l[i] = 0
-            i += 1
-            while i < len(l) - 1 and car > 0:
-                if l[i] > car:
-                    l[i] -= car
-                    ans += car
-                    car = 0
-                else:
-                    ans += l[i]
-                    car -= l[i]
-                    l[i] = 0
-                i += 1
-        print(ans)
+        su = sum(l)
+        print(floor(su / 2) if su % 2 == 1 else su // 2 - 1)
