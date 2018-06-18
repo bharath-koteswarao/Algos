@@ -1,17 +1,12 @@
 package Datastructures.Graphs;
 
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 
 import static java.lang.Math.min;
 
 /**
- * Created by bk on 28-05-2018.
+ * Created by bk on 16-06-2018.
  */
-
 
 class Graph {
     public Hashtable<String, Vertex> verticesList;
@@ -40,8 +35,16 @@ class Graph {
         verticesList.put(key + "", new Vertex(key));
     }
 
-    public List<String> getAdjacencyList(String key) {
-        return verticesList.get(key).getNeighbors();
+    public List<Vertex> getAdjacencyList(String key) {
+        List<Vertex> ret = new ArrayList<>();
+        for (String ver : verticesList.get(key).getNeighbors()) {
+            ret.add(verticesList.get(ver));
+        }
+        return ret;
+    }
+
+    public List<String> getAdjacencyList(Vertex vertex) {
+        return verticesList.get(vertex.key).getNeighbors();
     }
 
     public Vertex getVertex(String key) {
@@ -74,11 +77,12 @@ class Graph {
 
 }
 
-class Vertex implements Comparable {
+class Vertex implements Comparable<Vertex> {
     public String key;
     public Hashtable<String, Long> neighbors;
+    int sd = (int) Math.pow(10, 9);
     boolean fixed = false;
-    long sd = Integer.MAX_VALUE;
+    boolean visited = false;
 
     public Vertex(String key) {
         this.key = key;
@@ -88,11 +92,6 @@ class Vertex implements Comparable {
     public Vertex(long key) {
         this.key = key + "";
         neighbors = new Hashtable<>();
-    }
-
-    @Override
-    public String toString() {
-        return sd + "";
     }
 
     public void addNeighbor(String key, long weight) {
@@ -131,99 +130,62 @@ class Vertex implements Comparable {
         return new ArrayList<>(neighbors.keySet());
     }
 
+    @Override
+    public int compareTo(Vertex o) {
+        return this.sd - o.sd;
+    }
 
     @Override
-    public int compareTo(Object o) {
-        return (int) (sd - ((Vertex) o).sd);
+    public String toString() {
+        return this.sd + "";
     }
 }
 
+public class dijkstra_shortest_reach2 {
 
-class FastIO {
-    private BufferedReader br;
-    private StringTokenizer st;
-
-    FastIO() {
-        br = new BufferedReader(new
-                InputStreamReader(System.in));
-    }
-
-    public String next() {
-        while (st == null || !st.hasMoreElements()) {
-            try {
-                st = new StringTokenizer(br.readLine());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return st.nextToken();
-    }
-
-    public int nextInt() {
-        return Integer.parseInt(next());
-    }
-
-    public long nextLong() {
-        return Long.parseLong(next());
-    }
-
-    public double nextDouble() {
-        return Double.parseDouble(next());
-    }
-
-    public String nextLine() {
-        String str = "";
-        try {
-            str = br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return str;
-    }
-}
-
-public class dijkstra_shortest_reach_2 {
     public static void main(String[] __) {
-        FastIO sc = new FastIO();
+        Scanner sc = new Scanner(System.in);
         int tc = sc.nextInt();
-        for (int tc_i = 0; tc_i < tc; tc_i++) {
-            Graph graph = new Graph();
-            long n = sc.nextLong(), m = sc.nextLong();
-            for (int i = 1; i <= n; i++) graph.addVertex(i);
+        while (tc-- > 0) {
+            Graph g = new Graph();
+            int n = sc.nextInt(), m = sc.nextInt();
             for (int i = 0; i < m; i++) {
-                Vertex source = graph.getVertex(sc.nextLong()), destination = graph.getVertex(sc.nextLong());
-                long wt = sc.nextLong();
-                if (source.hasNeighbor(destination)) wt = min(wt, source.edgeLength(destination.key));
-                graph.addEdge(source, destination, wt);
-                graph.addEdge(destination, source, wt);
-//                System.out.println(source.getNeighbors());
+                long source = sc.nextLong(), dest = sc.nextLong(), weight = sc.nextLong();
+                Vertex so = g.getVertex(source);
+                Vertex de = g.getVertex(dest);
+                long mi = weight;
+                if (so.hasNeighbor(de)) mi = min(mi, so.edgeLength(de));
+                if (de.hasNeighbor(so)) mi = min(mi, de.edgeLength(so));
+                g.addEdge(source, dest, mi);
+                g.addEdge(dest, source, mi);
             }
-            String source = sc.nextLong() + "";
-            graph.verticesList.get(source).sd = 0;
-            PriorityQueue<Vertex> heap = new PriorityQueue<>(graph.verticesList.values());
+            Vertex source = g.getVertex(sc.nextLong());
+            source.sd = 0;
+            PriorityQueue<Vertex> heap = new PriorityQueue<>(g.verticesList.values());
             while (heap.size() > 0) {
-                Vertex nearest = heap.poll();
-//                System.out.println(nearest.key+" "+nearest.getNeighbors());
-//                System.out.println(nearest.key);
-                graph.verticesList.get(nearest.key).fixed = true;
-                for (String nei : nearest.getNeighbors()) {
-                    Vertex neighbor = graph.getVertex(nei);
-//                    System.out.println(nei + " "+neighbor.sd);
-                    neighbor.sd = min(neighbor.sd, nearest.sd + nearest.edgeLength(neighbor));
-//                    System.out.println(nei+" "+neighbor.sd);
+                Vertex shortest = heap.peek();
+                shortest.fixed = true;
+                List<Vertex> adj = g.getAdjacencyList(shortest.key);
+                for (Vertex vert : adj) {
+                    vert.visited = true;
+                    if (!vert.fixed) vert.sd = (int) min(vert.sd, shortest.sd + shortest.edgeLength(vert));
                 }
+                heap.remove();
             }
-            show(graph, n, source);
+            for (int i = 1; i <= n; i++) {
+                Vertex v = g.getVertex(i);
+                if (!v.key.equals(source.key)) System.out.print(v.sd == Math.pow(10, 9) ? -1 + " " : v.sd + " ");
+            }
+            System.out.println();
         }
     }
 
-    private static void show(Graph graph, long n, String source) {
-        for (int i = 1; i <= n; i++) {
-            if (!((i + "").equals(source))) {
-                long sd = graph.getVertex(i + "").sd;
-                System.out.print(sd >= Integer.MAX_VALUE ? -1 + " " : sd + " ");
-            }
+    private static Vertex getMin(List<Vertex> vertices) {
+        Vertex mi = vertices.get(0);
+        for (Vertex ver : vertices) {
+            if (mi.sd > ver.sd) mi = ver;
         }
-        System.out.println();
+        vertices.remove(mi);
+        return mi;
     }
 }
