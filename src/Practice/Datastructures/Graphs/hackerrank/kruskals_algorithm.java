@@ -1,18 +1,61 @@
-//package Datastructures.Graphs;
+package Datastructures.Graphs.hackerrank;
+
+/**
+ * Created by bk on 19-06-2018.
+ *
+ 11
+ a b 2
+ a c 6
+ a e 5
+ a f 10
+ b e 3
+ b d 3
+ c d 1
+ c f 2
+ d e 4
+ d g 5
+ f g 5
+ */
 
 import java.util.*;
 
-import static java.lang.Math.min;
+class Edge implements Comparable<Edge> {
+    String source, destination;
+    long weight;
 
-/**
- * Created by bk on 16-06-2018.
- */
+    Edge() {
+
+    }
+
+    Edge(String source, String destination, long weight) {
+        this.source = source;
+        this.destination = destination;
+        this.weight = weight;
+    }
+
+    Edge(long source, long destination, long weight) {
+        this.source = source + "";
+        this.destination = destination + "";
+        this.weight = weight;
+    }
+
+    @Override
+    public int compareTo(Edge o) {
+        return (int) (this.weight - o.weight);
+    }
+}
 
 class Graph {
     public Hashtable<String, Vertex> verticesList;
+    private ArrayList<Edge> edges;
 
     Graph() {
         verticesList = new Hashtable<>();
+        edges = new ArrayList<>();
+    }
+
+    public ArrayList<Edge> getEdges() {
+        return this.edges;
     }
 
     public boolean containsVertex(String key) {
@@ -61,28 +104,28 @@ class Graph {
         if (!verticesList.containsKey(source)) addVertex(source);
         if (!verticesList.containsKey(destination)) addVertex(destination);
         verticesList.get(source).addNeighbor(destination, weight);
+        edges.add(new Edge(source, destination, weight));
     }
 
     public void addEdge(Vertex source, Vertex destination, long weight) {
         if (!verticesList.containsKey(source.key)) addVertex(source.key);
         if (!verticesList.containsKey(destination.key)) addVertex(destination.key);
         verticesList.get(source.key).addNeighbor(destination.key, weight);
+        edges.add(new Edge(source.key, destination.key, weight));
     }
 
     public void addEdge(long source, long destination, long weight) {
         if (!verticesList.containsKey(source + "")) addVertex(source);
         if (!verticesList.containsKey(destination + "")) addVertex(destination);
         verticesList.get(source + "").addNeighbor(destination, weight);
+        edges.add(new Edge(source, destination, weight));
     }
 
 }
 
-class Vertex implements Comparable<Vertex> {
+class Vertex {
     public String key;
     public Hashtable<String, Long> neighbors;
-    int sd = (int) Math.pow(10, 9);
-    boolean fixed = false;
-    boolean visited = false;
 
     public Vertex(String key) {
         this.key = key;
@@ -129,63 +172,35 @@ class Vertex implements Comparable<Vertex> {
     public List<String> getNeighbors() {
         return new ArrayList<>(neighbors.keySet());
     }
-
-    @Override
-    public int compareTo(Vertex o) {
-        return this.sd - o.sd;
-    }
-
-    @Override
-    public String toString() {
-        return this.sd + "";
-    }
 }
 
-public class dijkstra_shortest_reach2 {
-
+public class kruskals_algorithm {
     public static void main(String[] __) {
         Scanner sc = new Scanner(System.in);
-        int tc = sc.nextInt();
-        while (tc-- > 0) {
-            Graph g = new Graph();
-            int n = sc.nextInt(), m = sc.nextInt();
-            for (int i = 0; i < m; i++) {
-                long source = sc.nextLong(), dest = sc.nextLong(), weight = sc.nextLong();
-                Vertex so = g.getVertex(source);
-                Vertex de = g.getVertex(dest);
-                long mi = weight;
-                if (so.hasNeighbor(de)) mi = min(mi, so.edgeLength(de));
-                if (de.hasNeighbor(so)) mi = min(mi, de.edgeLength(so));
-                g.addEdge(source, dest, mi);
-                g.addEdge(dest, source, mi);
-            }
-            Vertex source = g.getVertex(sc.nextLong());
-            source.sd = 0;
-            PriorityQueue<Vertex> heap = new PriorityQueue<>(g.verticesList.values());
-            while (heap.size() > 0) {
-                Vertex shortest = heap.peek();
-                shortest.fixed = true;
-                List<Vertex> adj = g.getAdjacencyList(shortest.key);
-                for (Vertex vert : adj) {
-                    vert.visited = true;
-                    if (!vert.fixed) vert.sd = (int) min(vert.sd, shortest.sd + shortest.edgeLength(vert));
-                }
-                heap.remove();
-            }
-            for (int i = 1; i <= n; i++) {
-                Vertex v = g.getVertex(i);
-                if (!v.key.equals(source.key)) System.out.print(v.sd == Math.pow(10, 9) ? -1 + " " : v.sd + " ");
-            }
-            System.out.println();
+        int edges = sc.nextInt();
+        Graph g = new Graph();
+        for (int i = 0; i < edges; i++) {
+            String source = sc.next(), dest = sc.next();
+            long wt = sc.nextLong();
+            g.addEdge(source, dest, wt);
         }
-    }
-
-    private static Vertex getMin(List<Vertex> vertices) {
-        Vertex mi = vertices.get(0);
-        for (Vertex ver : vertices) {
-            if (mi.sd > ver.sd) mi = ver;
+        List<Edge> edgs = g.getEdges();
+        Collections.sort(edgs);
+        Hashtable<String, Long> container = new Hashtable<>();
+        List<Vertex> vertices = g.getAllVertices();
+        for (int i = 0; i < vertices.size(); i++) {
+            container.put(vertices.get(i).key, (long) i);
         }
-        vertices.remove(mi);
-        return mi;
+        long minSPTWt = 0;
+        for (Edge edge: edgs) {
+            String source = edge.source;
+            String dest = edge.destination;
+            long wt = edge.weight;
+            if (!container.get(source).equals(container.get(dest))) {
+                minSPTWt += wt;
+                container.put(dest, container.get(source));
+            }
+        }
+        System.out.println(minSPTWt);
     }
 }
