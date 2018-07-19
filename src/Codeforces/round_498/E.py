@@ -71,10 +71,9 @@ class Graph:
         return self.verticesList
 
 
-def getAns(g, source, ans):
-    ans.append(source.key)
-    for i in sorted(g.getAdjacencyList(source), key=lambda x: x.key):
-        getAns(g, i, ans)
+def solve(g, vertex):
+    for i in sorted(g.getAdjacencyList(vertex), key=lambda x: x.key):
+        vertex.children += i.children
 
 
 if __name__ == '__main__':
@@ -83,8 +82,12 @@ if __name__ == '__main__':
     g = Graph()
     for i in range(n - 1):
         g.addEdge(arr[i], i + 2, 0)
-        g.getVertex(arr[i]).children += g.getVertex(i + 2).children
-    source = g.getVertex(1)
-    ans = []
-    getAns(g, source, ans)
-    print(ans)
+    for i in range(n, 0, -1):
+        solve(g, g.getVertex(i))
+    for _ in range(q):
+        u, k = [int(__) for __ in input().strip().split()]
+        children = g.getVertex(u).children
+        if k > len(children):
+            print(-1)
+        else:
+            print(children[k - 1])
