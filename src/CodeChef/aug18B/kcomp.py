@@ -1,6 +1,3 @@
-from bisect import bisect_left as bs
-
-
 class kcomp:
     arr = []
     su = 0
@@ -15,11 +12,8 @@ class kcomp:
 
     def check(self, x):
         new = []
-        for i in range(len(self.arr)):
-            sub = sorted(self.arr[max(0, i - x): min(n, i + x) + 1])
-            xx = self.arr[i]
-            yy = bs(sub, self.arr[i]) + 1
-            new.append(min(xx, yy, x + 1))
+        for p in range(len(self.arr)):
+            new.append(self.arr[p])
         return sum(new) <= self.su
 
     def ans(self):
