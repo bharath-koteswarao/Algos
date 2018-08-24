@@ -1,7 +1,7 @@
 class Node:
     left = None  # Left Node
     right = None  # Right Node
-    data = 0  # Node data
+    data = 0  # Node getData
 
     def __init__(self, data, left=None, right=None):
         self.data = data

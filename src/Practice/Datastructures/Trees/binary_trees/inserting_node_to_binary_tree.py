@@ -29,7 +29,7 @@ def main():
     root = get_tree_root()
     traverse_by_level_order(root)
     print()
-    data = int(input("Enter new data to be inserted : "))
+    data = int(input("Enter new getData to be inserted : "))
     insert_new_node(data, root)
     print("After inserting new node : ", end="")
     traverse_by_level_order(root)
