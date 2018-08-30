@@ -8,10 +8,13 @@ class Node:
         self.left = left
         self.right = right
 
+    def __repr__(self):
+        return str(self.data)
+
 
 def main():
     # Generate a simple tree for further calculations
-    l = input("Enter fifteen numbers : ").split(" ")
+    l = input("Enter fifteen numbers : ").strip().split()
     l = [int(i) for i in l]
 
     eighth = Node(l[7])
