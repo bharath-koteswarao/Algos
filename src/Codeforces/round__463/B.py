@@ -1,51 +1,47 @@
-from bisect import bisect_left as bs
+memo = [-1 for i in range(10 ** 6 + 1)]
 
 
 def f(x):
-    pr = 1
-    while x > 0:
+    pro = 1
+    while x != 0:
         re = x % 10
-        if re > 0:
-            pr *= re
+        pro *= re if re != 0 else 1
         x //= 10
-    return pr
+    return pro
 
 
-def g(x, memo):
-    if x in memo:
-        return memo[x]
+def g(x):
+    global memo
+    if memo[x - 1] != -1:
+        # print("prevented " + str(x))
+        return memo[x - 1]
     else:
         if x < 10:
-            memo[x] = x
-            return memo[x]
+            return x
         else:
-            memo[x] = g(f(x), memo)
-            return memo[x]
+            memo[x - 1] = g(f(x))
+            return memo[x - 1]
 
 
 if __name__ == '__main__':
-    lis = []
-    memo = {}
-    ans = {key: [] for key in range(1, 10)}
-    for i in range(1, 10 ** 6 + 1):
-        lis.append(g(i, memo))
-    for i in range(len(lis)):
-        ans[lis[i]].append(i + 1)
-    print(ans)
-    for _ in range(int(input().strip())):
-        l, r, k = [int(i) for i in input().strip().split()]
-        ar = ans[k]
-        if len(ar) == 0:
-            print(0)
-        else:
-            st = bs(ar, l)
-            en = bs(ar, r)
-            if en >= len(ar):
-                an = en - st
+    pre = [
+        [0 for j in range(10 ** 6)] for i in range(9)
+    ]
+    for i in range(9):
+        pre[i - 1][i - 1] = 1
+    for i in range(2, 10 ** 6 + 1):
+        val = g(i)
+        for j in range(9):
+            if j == val - 1:
+                pre[j][i - 1] = pre[j][i - 2] + 1
             else:
-                an = en - st + 1
-                if ar[en] != r:
-                    an -= 1
-                if an < 0:
-                    an = 0
-            print(an)
+                pre[j][i - 1] = pre[j][i - 2]
+    q = int(input().strip())
+    for _ in range(q):
+        l, r, k = [int(__) for __ in input().strip().split()]
+        l -= 1
+        r -= 1
+        if l == 0:
+            print(pre[k - 1][r])
+        else:
+            print(pre[k - 1][r] - pre[k - 1][l - 1])
