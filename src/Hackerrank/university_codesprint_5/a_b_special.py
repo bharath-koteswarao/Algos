@@ -1,4 +1,16 @@
-import sys
+"""
+10 10 1 2
+1 2
+3 4
+5 6
+7 8
+9 10
+1 3
+6 5
+4 3
+2 1
+8 7
+"""
 
 
 class Vertex:
@@ -75,51 +87,75 @@ class Graph:
         return self.verticesList
 
 
-def dfs(g, vertex, group):
-    vertex.visited = True
-    adjL = g.getAdjacencyList(vertex)
-    vertex.group = group
-    for verte in adjL:
-        if not verte.visited:
-            dfs(g, verte, group)
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.parent = self
+        self.rank = 1
+        self.isParent = True
+
+    def __repr__(self):
+        return str(self.val)
+
+
+def find(x):
+    if x.parent == x:
+        return x
+    else:
+        return find(x.parent)
+
+
+def merge(x, y):
+    p1, p2 = find(x), find(y)
+    if p1.val != p2.val:
+        if p1.rank >= p2.rank:
+            p2.parent = p1
+            p1.rank += p2.rank
+            p2.isParent = False
+        else:
+            p1.parent = p2
+            p2.rank += p1.rank
+            p1.isParent = False
 
 
 if __name__ == '__main__':
-    sys.setrecursionlimit(2147483647)
     n, m, a, b = [int(__) for __ in input().strip().split()]
     g = Graph()
+    dic = {i: Node(i) for i in range(1, n + 1)}
     for x in range(1, n + 1):
         g.addVertex(x)
     for _ in range(m):
         so, dest = [int(__) for __ in input().strip().split()]
         g.addEdge(so, dest, 0)
         g.addEdge(dest, so, 0)
+        merge(dic[so], dic[dest])
     adj = {}
     for x in g:
         adj[x.key] = len(g.getAdjacencyList(x))
-    gp = 0
-    for ver in g:
-        if not ver.visited:
-            gp += 1
-            dfs(g, ver, gp)
     conns = {}
-    for x in g:
-        if x.group in conns:
-            conns[x.group].append(x.key)
+    parent = {}
+    for x in dic:
+        p = find(dic[x]).val
+        parent[x] = p
+        if p in conns:
+            conns[p].append(x)
         else:
-            conns[x.group] = [x.key]
+            conns[p] = [x]
+    adjs = {}
+    for x in conns:
+        l = [0 for i in range(2 * len(conns[x]))]
+        co = 0
+        for el in conns[x]:
+            l[co] = a * adj[el]
+            l[co + 1] = b * adj[el]
+            co += 2
+        l.sort()
+        adjs[x] = l
     ans = 0
-    for vertex in g:
-        gpp = vertex.group
-        if len(conns[gpp]) > 1:
-            v = adj[vertex.key]
-            le, rt = False, False
-            for y in conns[gpp]:
-                if y != vertex.key:
-                    if a * adj[y] < v:
-                        le = True
-                    if b * adj[y] > v:
-                        rt = True
-            if le and rt:
-                ans += 1
+    for x in dic:
+        check = adjs[parent[x]]
+        check.remove(adj[x] * a)
+        check.remove(adj[x] * b)
+        if len(check) > 0 and adj[x] != check[0] and adj[x] != check[-1]:
+            ans += 1
     print(ans)
