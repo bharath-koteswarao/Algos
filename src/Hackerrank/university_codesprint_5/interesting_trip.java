@@ -228,7 +228,7 @@ public class interesting_trip {
         for (int i = 1; i <= n; i++) {
             g.addVertex(i, names.charAt(i - 1) + "");
         }
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < m - 1; i++) {
             long so = sc.nextLong(), de = sc.nextLong();
             g.addEdge(so, de, g.getVertex(de).name);
         }
@@ -237,22 +237,22 @@ public class interesting_trip {
         PriorityQueue<Vertex> heap = new PriorityQueue<>();
 
 
-        heap.add(source);
-        while (heap.size() > 0) {
-            Vertex cur = heap.remove();
-            if (!cur.fixed) {
-                List<Vertex> adj = g.getAdjacencyList(cur.key);
-                for (Vertex nei : adj) {
-                    if (!nei.fixed) {
-                        String newD = cur.distance + cur.edgeLength(nei);
-                        if (nei.distance.compareTo(newD) > 0) {
-                            nei.distance = newD;
-                            heap.add(nei);
-                        }
-                    }
-                }
-            }
-        }
+//        heap.add(source);
+//        while (heap.size() > 0) {
+//            Vertex cur = heap.remove();
+//            if (!cur.fixed) {
+//                List<Vertex> adj = g.getAdjacencyList(cur.key);
+//                for (Vertex nei : adj) {
+//                    if (!nei.fixed) {
+//                        String newD = cur.distance + cur.edgeLength(nei);
+//                        if (nei.distance.compareTo(newD) > 0) {
+//                            nei.distance = newD;
+//                            heap.add(nei);
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
 
         String dist = g.getVertex(destination.key).distance;

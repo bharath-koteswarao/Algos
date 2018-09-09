@@ -72,13 +72,7 @@ public class array_triplets {
             System.out.println(0);
         } else {
             findSubsets(arr, n, sum / 3);
-            if (answers.size() != 3) {
-                System.out.println(0);
-            } else {
-                long ans = 1;
-                for (ArrayList x : answers) ans *= x.size();
-                System.out.println(ans);
-            }
+            System.out.println(answers);
         }
     }
 
