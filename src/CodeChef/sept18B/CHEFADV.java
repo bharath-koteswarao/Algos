@@ -56,12 +56,14 @@ public class CHEFADV {
     public static void main(String[] __) {
         FastIO sc = new FastIO();
         int tc = sc.nextInt();
+        String yes = "Chefirnemo";
+        String no = "Pofik";
         while (tc-- > 0) {
             long n = sc.nextLong(), m = sc.nextLong(), x = sc.nextLong(), y = sc.nextLong();
-            long r1 = (n - 1) % x;
-            long r2 = (m - 1) % y;
-            if (r1 + r2 < 2) System.out.println("Chefirnemo");
-            else System.out.println("Pofik");
+            long r1 = (n - 1) % x, r2 = (m - 1) % y;
+            if (r1 == 0 && r2 == 0) System.out.println(yes);
+            else if ((n - 2) % x == 0 && (m - 2) % y == 0) System.out.println(yes);
+            else System.out.println(no);
         }
     }
 }
