@@ -29,14 +29,14 @@ def pop_heap(A):
 
 # runs in log(n) time
 def replace_key(A, node, newval):
-    '''Replace the key at node `node` in the max-heap `A` by `newval`.
+    '''Replace the nodeNumber at node `node` in the max-heap `A` by `newval`.
     The heap size does not change.'''
     curval = A[node]
     A[node] = newval
-    # increase key
+    # increase nodeNumber
     if newval > curval:
         __siftup(A, node)
-    # decrease key
+    # decrease nodeNumber
     elif newval < curval:
         __siftdown(A, node)
     return

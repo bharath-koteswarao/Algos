@@ -241,7 +241,7 @@ public class interesting_trip {
 //        while (heap.size() > 0) {
 //            Vertex cur = heap.remove();
 //            if (!cur.fixed) {
-//                List<Vertex> adj = g.getAdjacencyList(cur.key);
+//                List<Vertex> adj = g.getAdjacencyList(cur.nodeNumber);
 //                for (Vertex nei : adj) {
 //                    if (!nei.fixed) {
 //                        String newD = cur.distance + cur.edgeLength(nei);
