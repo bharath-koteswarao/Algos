@@ -27,7 +27,7 @@ if __name__ == '__main__':
         l = []
         for prime in sieve:
             st = 1
-            while prime ** st <= n:
+            while prime ** sht <= n:
                 st += 1
             l.append(prime ** (st - 1))
         l.sort()
