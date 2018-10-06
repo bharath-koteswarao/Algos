@@ -13,6 +13,10 @@ public class bk {
         System.out.println();
     }
 
+    public static void print_mat(int arr[][]) {
+        for (int[] x : arr) print_int(x);
+    }
+
     public static void print_boolenas(boolean arr[]) {
         for (i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " " + "|" + " ");
