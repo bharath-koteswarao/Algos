@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 /**
  * Created by bk on 08-10-2018.
  */
@@ -21,10 +24,13 @@ public class Hmappy {
         for (int i = 0; i < n; i++) cost[i] = sc.nextLong();
         PriorityQueue<Pair> heap = new PriorityQueue<>();
         for (int i = 0; i < n; i++) heap.add(new Pair(balloons[i], cost[i]));
-        while (k-- > 0) {
+        while (k > 0) {
             Pair top = heap.remove();
             if (top.balloons == 0) break;
-            top.balloons -= 1;
+            long dif = top.balloons * top.cost - heap.peek().balloons * heap.peek().cost;
+            if (dif < top.cost) dif = top.cost;
+            top.balloons -= min(k, dif / top.cost);
+            k -= min(k, dif / top.cost);
             heap.add(top);
         }
         Pair top = heap.remove();
@@ -43,7 +49,7 @@ public class Hmappy {
     private static long multiply(long x, long y) {
         int size1 = getSize(x);
         int size2 = getSize(y);
-        int N = Math.max(size1, size2);
+        int N = max(size1, size2);
         if (N < 10) return x * y;
         N = (N / 2) + (N % 2);
         long m = (long) Math.pow(10, N);
@@ -71,6 +77,11 @@ public class Hmappy {
         @Override
         public int compareTo(Pair o) {
             return -Double.compare(multiply(balloons, cost), multiply(o.balloons, o.cost));
+        }
+
+        @Override
+        public String toString() {
+            return "(" + balloons + ", " + cost + ")";
         }
     }
 
